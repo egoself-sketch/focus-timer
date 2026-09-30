@@ -1,0 +1,233 @@
+:root {
+  --bg-1: #0f1020;
+  --bg-2: #1c1b3a;
+  --surface: rgba(255, 255, 255, 0.06);
+  --border: rgba(255, 255, 255, 0.12);
+  --text: #f4f3ff;
+  --muted: #a6a3c9;
+  --track: rgba(255, 255, 255, 0.08);
+  --accent-1: #ff7a59;
+  --accent-2: #ff3d7f;
+  --glow: rgba(255, 90, 110, 0.35);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-1: #fff6f1;
+    --bg-2: #fde4ec;
+    --surface: rgba(255, 255, 255, 0.7);
+    --border: rgba(40, 20, 60, 0.1);
+    --text: #25163a;
+    --muted: #7a6a8c;
+    --track: rgba(40, 20, 60, 0.08);
+    --glow: rgba(255, 90, 110, 0.25);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px 16px;
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+    "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at 20% 10%, var(--bg-2), var(--bg-1) 70%);
+  background-color: var(--bg-1);
+}
+
+.app {
+  width: 100%;
+  max-width: 420px;
+  padding: 36px 28px 28px;
+  text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+}
+
+.app__header h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.app__subtitle {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Timer ring */
+.timer {
+  position: relative;
+  width: min(280px, 72vw);
+  aspect-ratio: 1;
+  margin: 32px auto 28px;
+}
+
+.timer__ring {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  overflow: visible;
+}
+
+.timer__track,
+.timer__progress {
+  fill: none;
+  stroke-width: 12;
+}
+
+.timer__track {
+  stroke: var(--track);
+}
+
+.timer__progress {
+  stroke: url(#ringGradient);
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.3s linear;
+  filter: drop-shadow(0 0 10px var(--glow));
+}
+
+.timer.is-running .timer__progress {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 6px var(--glow));
+  }
+  50% {
+    filter: drop-shadow(0 0 18px var(--glow));
+  }
+}
+
+.timer__center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.timer__time {
+  font-size: clamp(48px, 15vw, 64px);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.timer__status {
+  margin-top: 4px;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.timer.is-done .timer__time {
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 128px;
+  padding: 14px 22px;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--accent-1);
+  outline-offset: 3px;
+}
+
+.btn--primary {
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  box-shadow: 0 10px 30px var(--glow);
+}
+
+.btn--primary:hover {
+  box-shadow: 0 14px 36px var(--glow);
+}
+
+.btn--ghost {
+  color: var(--text);
+  background: transparent;
+  border-color: var(--border);
+}
+
+.btn--ghost:hover {
+  background: var(--surface);
+}
+
+.btn__icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.sessions {
+  margin: 24px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.sessions strong {
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.hint {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timer__progress {
+    transition: none;
+  }
+  .timer.is-running .timer__progress {
+    animation: none;
+  }
+}

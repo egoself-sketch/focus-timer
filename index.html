@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Focus Timer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="app__header">
+      <h1>Focus</h1>
+      <p class="app__subtitle">25분 동안 한 가지에만 집중하세요</p>
+    </header>
+
+    <section class="timer" aria-label="집중 타이머">
+      <svg class="timer__ring" viewBox="0 0 220 220" aria-hidden="true">
+        <defs>
+          <linearGradient id="ringGradient" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="var(--accent-1)" />
+            <stop offset="100%" stop-color="var(--accent-2)" />
+          </linearGradient>
+        </defs>
+        <circle class="timer__track" cx="110" cy="110" r="96" />
+        <circle class="timer__progress" id="progress" cx="110" cy="110" r="96" />
+      </svg>
+
+      <div class="timer__center">
+        <div class="timer__time" id="time" role="timer" aria-live="off">25:00</div>
+        <div class="timer__status" id="status">준비</div>
+      </div>
+    </section>
+
+    <div class="controls">
+      <button class="btn btn--primary" id="toggle" type="button">
+        <span class="btn__icon" id="toggleIcon" aria-hidden="true">▶</span>
+        <span id="toggleLabel">시작</span>
+      </button>
+      <button class="btn btn--ghost" id="reset" type="button">
+        <span class="btn__icon" aria-hidden="true">↺</span>
+        <span>재설정</span>
+      </button>
+    </div>
+
+    <p class="sessions">완료한 세션 <strong id="sessions">0</strong></p>
+    <p class="hint">스페이스바: 시작/일시정지 · R: 재설정</p>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
